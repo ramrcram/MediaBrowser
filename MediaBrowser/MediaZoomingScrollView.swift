@@ -21,6 +21,7 @@ class MediaZoomingScrollView: UIScrollView, UIScrollViewDelegate, TapDetectingIm
     var tapView = MediaTapDetectingView(frame: .zero) // for background taps
     var photoImageView = MediaTapDetectingImageView(frame: .zero)
     var loadingError: UIImageView?
+    weak var waterMarkView: UIView?
     
     init(mediaBrowser: MediaBrowser) {
         super.init(frame: .zero)
@@ -84,6 +85,7 @@ class MediaZoomingScrollView: UIScrollView, UIScrollViewDelegate, TapDetectingIm
         captionView = nil
         selectedButton = nil
         playButton = nil
+        waterMarkView = nil
         photoImageView.isHidden = false
         if let placeholder = self.mediaBrowser.placeholderImage, placeholder.isAppliedForAll || (!placeholder.isAppliedForAll && self.index == self.mediaBrowser.currentIndex) {
             photoImageView.image = self.mediaBrowser.placeholderImage?.image
@@ -168,22 +170,22 @@ class MediaZoomingScrollView: UIScrollView, UIScrollViewDelegate, TapDetectingIm
                 // Set zoom to minimum zoom
                 setMaxMinZoomScalesForCurrentBounds()
                 // clear if exciting
-                for vw in photoImageView.subviews{
-                    vw.removeFromSuperview()
-                }
-                if let waterMarkView = media?.waterMarkView, photoImageView.subviews.count == 0{
-                    // Here add waterMark view
-                    photoImageView.addSubview(waterMarkView)
-                    // Set Constaint
-                    if #available(iOS 9.0, *) {
-                        NSLayoutConstraint.activate([
-                            waterMarkView.trailingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: -20),
-                            waterMarkView.bottomAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: -20)
-                        ])
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                }
+//                for vw in photoImageView.subviews{
+//                    vw.removeFromSuperview()
+//                }
+//                if let waterMarkView = media?.waterMarkView, photoImageView.subviews.count == 0{
+//                    // Here add waterMark view
+//                    photoImageView.addSubview(waterMarkView)
+//                    // Set Constaint
+//                    if #available(iOS 9.0, *) {
+//                        NSLayoutConstraint.activate([
+//                            waterMarkView.trailingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: -20),
+//                            waterMarkView.bottomAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: -20)
+//                        ])
+//                    } else {
+//                        // Fallback on earlier versions
+//                    }
+//                }
             } else {
                 // Show image failure
                 displayImageFailure()

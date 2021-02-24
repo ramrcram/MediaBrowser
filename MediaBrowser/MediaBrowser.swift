@@ -307,7 +307,7 @@ func floorcgf(x: CGFloat) -> CGFloat {
         pagingScrollView.delegate = nil
         NotificationCenter.default.removeObserver(self)
         releaseAllUnderlyingPhotos(preserveCurrent: false)
-        SDImageCache.shared().clearMemory() // clear memory
+        SDImageCache.shared.clearMemory() // clear memory
     }
 
     private func releaseAllUnderlyingPhotos(preserveCurrent: Bool) {
@@ -996,6 +996,15 @@ func floorcgf(x: CGFloat) -> CGFloat {
         return media
     }
 
+    func watermarkViewForPhotoAtIndex(index: Int) -> UIView? {
+        var watermarkView: UIView?
+        
+        if let d = delegate {
+            watermarkView = d.watermarkView(for: self, at: index)
+        }
+        return watermarkView
+    }
+    
     func captionViewForPhotoAtIndex(index: Int) -> MediaCaptionView? {
         var captionView: MediaCaptionView?
         

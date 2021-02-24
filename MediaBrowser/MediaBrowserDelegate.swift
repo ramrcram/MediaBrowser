@@ -104,6 +104,14 @@ public protocol MediaBrowserDelegate: NSObject {
      Optional protocol for access token
      */
     func accessToken(for url: URL?) -> String?
+    
+    /**
+     Optional protocol to show captionView. return MediaCaptionView.
+     
+     - Parameter mediaBrowser: MediaBrowser
+     - Parameter index: Int
+     */
+    func watermarkView(for mediaBrowser: MediaBrowser, at index: Int) -> UIView?
 }
 
 public extension MediaBrowserDelegate {
@@ -128,4 +136,6 @@ public extension MediaBrowserDelegate {
     func gridCellSize() -> CGSize { return CGSize(width: 128, height: 128) }
 
     func accessToken(for url: URL?) -> String? { return nil }
+    
+    func watermarkView(for mediaBrowser: MediaBrowser, at index: Int) -> UIView?{return nil}
 }

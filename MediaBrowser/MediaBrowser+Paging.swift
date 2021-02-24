@@ -116,6 +116,19 @@ extension MediaBrowser {
                 
                 pagingScrollView.addSubview(page)
                 
+                // Add WaterMark View
+                if let watermarkView = watermarkViewForPhotoAtIndex(index: index) {
+                    pagingScrollView.addSubview(watermarkView)
+                    if #available(iOS 9.0, *) {
+                        NSLayoutConstraint.activate([
+                            watermarkView.trailingAnchor.constraint(equalTo: pagingScrollView.trailingAnchor, constant: -20),
+                            watermarkView.bottomAnchor.constraint(equalTo: pagingScrollView.bottomAnchor, constant: -20)
+                        ])
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                }
+                
                 // Add caption
                 if let captionView = captionViewForPhotoAtIndex(index: index) {
                     captionView.frame = frameForCaptionView(captionView: captionView, index: index)
