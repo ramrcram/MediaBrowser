@@ -69,7 +69,9 @@ extension MediaBrowser {
                 if let cw = page.captionView {
                     cw.removeFromSuperview()
                 }
-                
+                if let wm = page.waterMarkView {
+                    wm.removeFromSuperview()
+                }
                 if let selected = page.selectedButton {
                     selected.removeFromSuperview()
                 }
@@ -119,14 +121,16 @@ extension MediaBrowser {
                 // Add WaterMark View
                 if let watermarkView = watermarkViewForPhotoAtIndex(index: index) {
                     pagingScrollView.addSubview(watermarkView)
+                    let frame = frameForWaterMarkView(watermarkView: watermarkView, index: index)
                     if #available(iOS 9.0, *) {
                         NSLayoutConstraint.activate([
-                            watermarkView.trailingAnchor.constraint(equalTo: pagingScrollView.trailingAnchor, constant: -20),
-                            watermarkView.bottomAnchor.constraint(equalTo: pagingScrollView.bottomAnchor, constant: -20)
+                            watermarkView.topAnchor.constraint(equalTo: pagingScrollView.topAnchor, constant: 100),
+                            watermarkView.leadingAnchor.constraint(equalTo: pagingScrollView.leadingAnchor, constant: frame.origin.x + 20)
                         ])
                     } else {
                         // Fallback on earlier versions
                     }
+                    page.waterMarkView = watermarkView
                 }
                 
                 // Add caption

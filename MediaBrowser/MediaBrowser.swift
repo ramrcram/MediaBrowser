@@ -1191,6 +1191,26 @@ func floorcgf(x: CGFloat) -> CGFloat {
         return CGRect.zero
     }
 
+    func frameForWaterMarkView(watermarkView: UIView?, index: Int) -> CGRect {
+        if let wm = watermarkView {
+            let pageFrame = frameForPageAtIndex(index: index)
+            var safeAreaBottomInset: CGFloat = 0
+            if #available(iOS 11.0, *) {
+                safeAreaBottomInset = self.view.safeAreaInsets.bottom
+            }
+            
+            let captionFrame = CGRect(
+                x: pageFrame.origin.x,
+                y: 100, //pageFrame.size.height - safeAreaBottomInset - captionSize.height - (toolbar.superview != nil ? toolbar.frame.size.height : 0.0),
+                width: pageFrame.size.width,
+                height: 60)
+            
+            return captionFrame.integral
+        }
+        
+        return CGRect.zero
+    }
+    
     func frameForSelectedButton(selectedButton: UIButton, atIndex index: Int) -> CGRect {
         let pageFrame = frameForPageAtIndex(index: index)
         let padding: CGFloat = 20.0
