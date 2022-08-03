@@ -1,10 +1,10 @@
-platform :ios, '8.1'
+platform :ios, '13'
 
 target 'MediaBrowser' do
   use_frameworks!
   
   pod "UICircularProgressRing"
-  pod "SDWebImage"
+  pod 'SDWebImage', '~> 5.13.2'
 
 end
 
