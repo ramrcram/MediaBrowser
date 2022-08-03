@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MediaBrowser'
-  s.version          = '2.3.0'
+  s.version          = '3.0.0'
   s.summary          = 'A simple iOS photo and video browser with optional grid view, captions and selections written in Swift5.'
 
   s.description = <<-DESCRIPTION
@@ -26,7 +26,7 @@ MediaBrowser can display one or more images or videos by providing either UIImag
   s.social_media_url = 'https://twitter.com/younatics'
 
   s.source           = { 
-    :git => 'https://github.com/younatics/MediaBrowser.git', 
+    :git => 'https://github.com/samirae/MediaBrowser.git', 
     :tag => s.version.to_s }
   s.source_files     = 'MediaBrowser/*.swift'
   s.resources        = "MediaBrowser/*.xcassets"
