@@ -142,7 +142,7 @@ extension MediaBrowser {
                     let frame = frameForWaterMarkView(watermarkView: userCreditView, index: index)
                     pagingScrollView.addSubview(userCreditView)
                     NSLayoutConstraint.activate([
-                        userCreditView.bottomAnchor.constraint(equalTo: page.bottomAnchor,constant: -1.00),
+                        userCreditView.bottomAnchor.constraint(equalTo: page.bottomAnchor,constant: -100),
                         userCreditView.leadingAnchor.constraint(equalTo: pagingScrollView.leadingAnchor, constant: frame.origin.x + 20)
                     ])
                     page.userCreditView = userCreditView
