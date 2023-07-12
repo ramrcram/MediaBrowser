@@ -1005,6 +1005,15 @@ func floorcgf(x: CGFloat) -> CGFloat {
         return watermarkView
     }
     
+    func userCreditViewForPhotoAtIndex(index: Int) -> UIView? {
+        var userCreditView: UIView?
+        
+        if let d = delegate {
+            userCreditView = d.userCreditView(for: self, at: index)
+        }
+        return userCreditView
+    }
+    
     func captionViewForPhotoAtIndex(index: Int) -> MediaCaptionView? {
         var captionView: MediaCaptionView?
         
@@ -1192,7 +1201,7 @@ func floorcgf(x: CGFloat) -> CGFloat {
     }
 
     func frameForWaterMarkView(watermarkView: UIView?, index: Int) -> CGRect {
-        if let wm = watermarkView {
+        if watermarkView != nil {
             let pageFrame = frameForPageAtIndex(index: index)
             var safeAreaBottomInset: CGFloat = 0
             if #available(iOS 11.0, *) {

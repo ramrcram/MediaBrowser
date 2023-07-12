@@ -112,6 +112,14 @@ public protocol MediaBrowserDelegate: NSObject {
      - Parameter index: Int
      */
     func watermarkView(for mediaBrowser: MediaBrowser, at index: Int) -> UIView?
+    
+    /**
+     Optional protocol to show User Credi. return View.
+     
+     - Parameter mediaBrowser: MediaBrowser
+     - Parameter index: Int
+     */
+    func userCreditView(for mediaBrowser: MediaBrowser, at index: Int) -> UIView?
 }
 
 public extension MediaBrowserDelegate {
@@ -138,4 +146,6 @@ public extension MediaBrowserDelegate {
     func accessToken(for url: URL?) -> String? { return nil }
     
     func watermarkView(for mediaBrowser: MediaBrowser, at index: Int) -> UIView?{return nil}
+    
+    func userCreditView(for mediaBrowser: MediaBrowser, at index: Int) -> UIView?{return nil}
 }
