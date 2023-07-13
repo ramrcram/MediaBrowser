@@ -115,7 +115,7 @@ func floorcgf(x: CGFloat) -> CGFloat {
     public var displayActionButton = true
     
     /// Image can added actionbutton
-    public var actionButtonImage:UIImage?
+    public var actionButtonView:UIButton?
     
     /// Make status bar not hide
     public var leaveStatusBarAlone = false
@@ -415,11 +415,11 @@ func floorcgf(x: CGFloat) -> CGFloat {
         
         if displayActionButton {
             // Check if custom button if not add default SystemItem action
-            if let buttonImage = actionButtonImage{
-                actionButton = UIBarButtonItem(image: buttonImage,
-                                               style: .done,
-                                               target: self,
-                                               action: #selector(actionButtonPressed(_:)))
+            if let buttonImage = actionButtonView{
+                buttonImage.addTarget(self,
+                                      action: #selector(actionButtonPressed(_:)),
+                                      for: .touchUpInside)
+                actionButton = UIBarButtonItem(customView: buttonImage)
             }else{
                 actionButton = UIBarButtonItem(
                     barButtonSystemItem: UIBarButtonItem.SystemItem.action,
