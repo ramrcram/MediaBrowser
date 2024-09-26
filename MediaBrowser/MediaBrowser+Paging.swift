@@ -72,6 +72,9 @@ extension MediaBrowser {
                 if let wm = page.waterMarkView {
                     wm.removeFromSuperview()
                 }
+                if let wm = page.userCreditView {
+                    wm.removeFromSuperview()
+                }
                 if let selected = page.selectedButton {
                     selected.removeFromSuperview()
                 }
@@ -124,13 +127,25 @@ extension MediaBrowser {
                     let frame = frameForWaterMarkView(watermarkView: watermarkView, index: index)
                     if #available(iOS 9.0, *) {
                         NSLayoutConstraint.activate([
-                            watermarkView.topAnchor.constraint(equalTo: pagingScrollView.topAnchor, constant: 100),
+                            watermarkView.topAnchor.constraint(equalTo: page.topAnchor, constant: 100),
                             watermarkView.leadingAnchor.constraint(equalTo: pagingScrollView.leadingAnchor, constant: frame.origin.x + 20)
                         ])
                     } else {
                         // Fallback on earlier versions
                     }
                     page.waterMarkView = watermarkView
+                }
+                
+                // Add User Credit View
+                if let userCreditView = userCreditViewForPhotoAtIndex(index: index) {
+                    userCreditView.translatesAutoresizingMaskIntoConstraints = false
+                    let frame = frameForWaterMarkView(watermarkView: userCreditView, index: index)
+                    pagingScrollView.addSubview(userCreditView)
+                    NSLayoutConstraint.activate([
+                        userCreditView.bottomAnchor.constraint(equalTo: page.bottomAnchor,constant: -100),
+                        userCreditView.leadingAnchor.constraint(equalTo: pagingScrollView.leadingAnchor, constant: frame.origin.x + 20)
+                    ])
+                    page.userCreditView = userCreditView
                 }
                 
                 // Add caption

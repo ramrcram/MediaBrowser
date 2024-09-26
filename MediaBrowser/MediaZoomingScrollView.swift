@@ -22,6 +22,7 @@ class MediaZoomingScrollView: UIScrollView, UIScrollViewDelegate, TapDetectingIm
     var photoImageView = MediaTapDetectingImageView(frame: .zero)
     var loadingError: UIImageView?
     weak var waterMarkView: UIView?
+    weak var userCreditView: UIView?
     
     init(mediaBrowser: MediaBrowser) {
         super.init(frame: .zero)

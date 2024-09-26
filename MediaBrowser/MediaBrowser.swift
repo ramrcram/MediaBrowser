@@ -115,7 +115,7 @@ func floorcgf(x: CGFloat) -> CGFloat {
     public var displayActionButton = true
     
     /// Image can added actionbutton
-    public var actionButtonImage:UIImage?
+    public var actionButtonView:UIButton?
     
     /// Make status bar not hide
     public var leaveStatusBarAlone = false
@@ -307,7 +307,7 @@ func floorcgf(x: CGFloat) -> CGFloat {
         pagingScrollView.delegate = nil
         NotificationCenter.default.removeObserver(self)
         releaseAllUnderlyingPhotos(preserveCurrent: false)
-        SDImageCache.shared().clearMemory() // clear memory
+        SDImageCache.shared.clearMemory() // clear memory
     }
 
     private func releaseAllUnderlyingPhotos(preserveCurrent: Bool) {
@@ -415,11 +415,11 @@ func floorcgf(x: CGFloat) -> CGFloat {
         
         if displayActionButton {
             // Check if custom button if not add default SystemItem action
-            if let buttonImage = actionButtonImage{
-                actionButton = UIBarButtonItem(image: buttonImage,
-                                               style: .done,
-                                               target: self,
-                                               action: #selector(actionButtonPressed(_:)))
+            if let buttonImage = actionButtonView{
+                buttonImage.addTarget(self,
+                                      action: #selector(actionButtonPressed(_:)),
+                                      for: .touchUpInside)
+                actionButton = UIBarButtonItem(customView: buttonImage)
             }else{
                 actionButton = UIBarButtonItem(
                     barButtonSystemItem: UIBarButtonItem.SystemItem.action,
@@ -1005,6 +1005,15 @@ func floorcgf(x: CGFloat) -> CGFloat {
         return watermarkView
     }
     
+    func userCreditViewForPhotoAtIndex(index: Int) -> UIView? {
+        var userCreditView: UIView?
+        
+        if let d = delegate {
+            userCreditView = d.userCreditView(for: self, at: index)
+        }
+        return userCreditView
+    }
+    
     func captionViewForPhotoAtIndex(index: Int) -> MediaCaptionView? {
         var captionView: MediaCaptionView?
         
@@ -1192,7 +1201,7 @@ func floorcgf(x: CGFloat) -> CGFloat {
     }
 
     func frameForWaterMarkView(watermarkView: UIView?, index: Int) -> CGRect {
-        if let wm = watermarkView {
+        if watermarkView != nil {
             let pageFrame = frameForPageAtIndex(index: index)
             var safeAreaBottomInset: CGFloat = 0
             if #available(iOS 11.0, *) {
